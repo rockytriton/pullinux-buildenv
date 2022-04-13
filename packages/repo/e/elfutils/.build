@@ -1,0 +1,16 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd elfutils-0.186 || cd $pckname
+
+./configure --prefix=/usr                \
+            --disable-debuginfod         \
+            --enable-libdebuginfod=dummy
+
+make
+
+make -C libelf DESTDIR=$pckdir install
+mkdir -p $pckdir/usr/lib/pkgconfig
+
+install -vm644 config/libelf.pc $pckdir/usr/lib/pkgconfig
+rm $pckdir/usr/lib/libelf.a
+

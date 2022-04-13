@@ -1,0 +1,16 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd man-db-2.10.1 || cd $pckname
+
+./configure --prefix=/usr                         \
+            --docdir=/usr/share/doc/man-db-2.10.1 \
+            --sysconfdir=/etc                     \
+            --disable-setuid                      \
+            --enable-cache-owner=bin              \
+            --with-browser=/usr/bin/lynx          \
+            --with-vgrind=/usr/bin/vgrind         \
+            --with-grap=/usr/bin/grap
+
+make
+make DESTDIR=$pckdir install
+

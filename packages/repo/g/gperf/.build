@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gperf-3.1 || cd $pckname
+
+./configure --prefix=/usr --docdir=/usr/share/doc/gperf-3.1
+
+make
+make DESTDIR=$pckdir install
+

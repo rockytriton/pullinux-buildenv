@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd zstd-1.5.2 || cd $pckname
+
+make
+make DESTDIR=$pckdir prefix=/usr install
+
+rm -v $pckdir/usr/lib/libzstd.a
+

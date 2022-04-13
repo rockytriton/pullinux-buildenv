@@ -1,0 +1,34 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd ncurses-6.3 || cd $pckname
+
+./configure --prefix=/usr           \
+            --mandir=/usr/share/man \
+            --with-shared           \
+            --without-debug         \
+            --without-normal        \
+            --enable-pc-files       \
+            --enable-widec          \
+            --with-pkg-config-libdir=/usr/lib/pkgconfig
+
+make
+make DESTDIR=$PWD/dest install
+install -vm755 dest/usr/lib/libncursesw.so.6.3 /usr/lib
+rm -v  dest/usr/lib/{libncursesw.so.6.3,libncurses++w.a}
+cp -av dest/* $pckdir/
+
+mkdir -p $pckdir/usr/lib/pkgconfig
+
+for lib in ncurses form panel menu ; do
+    rm -vf                    $pckdir/usr/lib/lib${lib}.so
+    echo "INPUT(-l${lib}w)" > $pckdir/usr/lib/lib${lib}.so
+    ln -sfv ${lib}w.pc        $pckdir/usr/lib/pkgconfig/${lib}.pc
+done
+
+rm -vf                     $pckdir/usr/lib/libcursesw.so
+echo "INPUT(-lncursesw)" > $pckdir/usr/lib/libcursesw.so
+ln -sfv libncurses.so      $pckdir/usr/lib/libcurses.so
+
+mkdir -pv      $pckdir/usr/share/doc/ncurses-6.3
+cp -v -R doc/* $pckdir/usr/share/doc/ncurses-6.3
+

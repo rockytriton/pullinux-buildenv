@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd attr-2.5.1 || cd $pckname
+
+./configure --prefix=/usr     \
+            --disable-static  \
+            --sysconfdir=/etc \
+            --docdir=/usr/share/doc/attr-2.5.1
+
+make
+make DESTDIR=$pckdir install
+

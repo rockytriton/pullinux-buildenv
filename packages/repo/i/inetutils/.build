@@ -1,0 +1,21 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd inetutils-2.2 || cd $pckname
+
+./configure --prefix=/usr        \
+            --bindir=/usr/bin    \
+            --localstatedir=/var \
+            --disable-logger     \
+            --disable-whois      \
+            --disable-rcp        \
+            --disable-rexec      \
+            --disable-rlogin     \
+            --disable-rsh        \
+            --disable-servers
+
+make
+make DESTDIR=$pckdir install
+
+mkdir -p $pckdir/usr/sbin
+mv -v $pckdir/usr/{,s}bin/ifconfig
+

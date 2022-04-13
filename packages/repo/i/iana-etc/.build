@@ -1,0 +1,7 @@
+
+tar -xf $filename
+pckname=${filename%.t*}
+cd $pckname
+
+mkdir $pckdir/etc
+cp services protocols $pckdir/etc

@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd mpfr-4.1.0 || cd $pckname
+
+./configure --prefix=/usr        \
+            --disable-static     \
+            --enable-thread-safe \
+            --docdir=/usr/share/doc/mpfr-4.1.0
+
+make
+make html
+
+make DESTDIR=$pckdir install
+make DESTDIR=$pckdir install-html
+

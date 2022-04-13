@@ -1,0 +1,6 @@
+
+tar -xf $filename
+pckname=${filename%.t*}
+cd $pckname
+
+make prefix=$pckdir/usr install &>> /build/build.log

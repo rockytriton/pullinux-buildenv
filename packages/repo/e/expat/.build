@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd expat-2.4.6 || cd $pckname
+
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/expat-2.4.6
+
+make
+make DESTDIR=$pckdir install
+
+install -v -m644 doc/*.{html,css} $pckdir/usr/share/doc/expat-2.4.6
+

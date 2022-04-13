@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd texinfo-6.8 || cd $pckname
+
+./configure --prefix=/usr 
+
+sed -e 's/__attribute_nonnull__/__nonnull/' \
+    -i gnulib/lib/malloc/dynarray-skeleton.c
+
+make
+make DESTDIR=$pckdir install
+
+make DESTDIR=$pckdir TEXMF=/usr/share/texmf install-tex
+

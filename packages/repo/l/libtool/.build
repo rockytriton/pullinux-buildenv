@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libtool-2.4.6 || cd $pckname
+
+./configure --prefix=/usr
+
+make
+make DESTDIR=$pckdir install
+rm -fv $pckdir/usr/lib/libltdl.a
+

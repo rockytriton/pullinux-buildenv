@@ -1,0 +1,17 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd linux-5.16.9 || cd $pckname
+
+make mrproper
+
+cp ../config .config
+
+make
+
+mkdir -p $pckdir/boot
+cp arch/arm64/boot/Image.gz $pckdir/boot/vmlinuz-pullinux-1.3.0
+cp .config $pckdir/boot/.config
+
+INSTALL_MOD_PATH=$pckdir make modules_install
+
+

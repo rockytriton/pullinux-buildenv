@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gmp-6.2.1 || cd $pckname
+
+./configure --prefix=/usr    \
+            --enable-cxx     \
+            --disable-static \
+            --docdir=/usr/share/doc/gmp-6.2.1
+
+make
+make html
+make DESTDIR=$pckdir install
+make DESTDIR=$pckdir install-html
+

@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd iproute2-5.16.0 || cd $pckname
+
+sed -i /ARPD/d Makefile
+rm -fv man/man8/arpd.8
+
+make
+make SBINDIR=/usr/sbin DESTDIR=$pckdir install
+

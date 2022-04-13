@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libcap-2.63 || cd $pckname
+
+sed -i '/install -m.*STA/d' libcap/Makefile
+
+make prefix=/usr lib=lib
+
+make prefix=/usr lib=lib DESTDIR=$pckdir install
+

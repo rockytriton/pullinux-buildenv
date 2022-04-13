@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd findutils-4.9.0 || cd $pckname
+
+./configure --prefix=/usr --localstatedir=/var/lib/locate
+
+make
+make DESTDIR=$pckdir install
+

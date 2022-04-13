@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd tar-1.34 || cd $pckname
+
+FORCE_UNSAFE_CONFIGURE=1  \
+./configure --prefix=/usr
+
+make
+make DESTDIR=$pckdir install
+
+make -C doc install-html DESTDIR=$pckdir docdir=/usr/share/doc/tar-1.34
+

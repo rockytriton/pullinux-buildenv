@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd groff-1.22.4 || cd $pckname
+
+PAGE=letter ./configure --prefix=/usr
+
+make -j1
+make DESTDIR=$pckdir install
+

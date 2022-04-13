@@ -1,0 +1,30 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gcc-11.2.0 || cd $pckname
+
+sed -e '/static.*SIGSTKSZ/d' \
+    -e 's/return kAltStackSize/return SIGSTKSZ * 4/' \
+    -i libsanitizer/sanitizer_common/sanitizer_posix_libcdep.cpp
+
+sed -e '/lp64=/s/lib64/lib/' -i.orig gcc/config/aarch64/t-aarch64-linux
+
+mkdir -v build
+cd       build
+
+../configure --prefix=/usr            \
+             LD=ld                    \
+             --enable-languages=c,c++ \
+             --disable-multilib       \
+             --disable-bootstrap      \
+             --with-system-zlib
+
+make
+make DESTDIR=$pckdir install
+
+rm -rf $pckdir/usr/lib/gcc/$(gcc -dumpmachine)/11.2.0/include-fixed/bits/
+
+ln -svr /usr/bin/cpp $pckdir/usr/lib
+
+mkdir -pv $pckdir/usr/share/gdb/auto-load/usr/lib
+mv -v $pckdir/usr/lib/*gdb.py $pckdir/usr/share/gdb/auto-load/usr/lib
+

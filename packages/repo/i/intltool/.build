@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd intltool-0.51.0 || cd $pckname
+
+sed -i 's:\\\${:\\\$\\{:' intltool-update.in
+
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+
+install -v -Dm644 doc/I18N-HOWTO $pckdir/usr/share/doc/intltool-0.51.0/I18N-HOWTO

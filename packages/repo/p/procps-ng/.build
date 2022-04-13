@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd procps-3.3.17 || cd $pckname
+
+./configure --prefix=/usr                            \
+            --docdir=/usr/share/doc/procps-ng-3.3.17 \
+            --disable-static                         \
+            --disable-kill                           \
+            --with-systemd
+
+make
+make DESTDIR=$pckdir install
+

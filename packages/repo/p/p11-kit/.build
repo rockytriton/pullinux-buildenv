@@ -1,0 +1,27 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd p11-kit-0.24.1 || cd $pckname
+
+sed '20,$ d' -i trust/trust-extract-compat &&
+cat >> trust/trust-extract-compat << "EOF"
+# Copy existing anchor modifications to /etc/ssl/local
+/usr/libexec/make-ca/copy-trust-modifications
+
+# Update trust stores
+/usr/sbin/make-ca -r
+EOF
+
+./configure --prefix=/usr --with-trust-paths=/etc/pki/anchors
+
+make
+make DESTDIR=$pckdir install
+
+mkdir -p $pckdir/usr/bin
+
+ln -sfv /usr/libexec/p11-kit/trust-extract-compat \
+        $pckdir/usr/bin/update-ca-certificates
+
+mkdir -p $pckdir/usr/lib
+
+ln -sfv ./pkcs11/p11-kit-trust.so $pckdir/usr/lib/libnssckbi.so
+

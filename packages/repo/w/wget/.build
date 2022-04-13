@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd wget-1.21.2 || cd $pckname
+
+./configure --prefix=/usr      \
+            --sysconfdir=/etc  \
+            --with-ssl=openssl
+
+make
+make DESTDIR=$pckdir install
+

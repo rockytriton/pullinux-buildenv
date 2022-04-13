@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libpipeline-1.5.5 || cd $pckname
+
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+

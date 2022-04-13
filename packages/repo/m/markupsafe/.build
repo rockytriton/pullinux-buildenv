@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd MarkupSafe-2.0.1 || cd $pckname
+
+python3 setup.py build
+
+python3 setup.py install --optimize=1 --root=$pckdir
+
+

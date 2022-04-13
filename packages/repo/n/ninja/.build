@@ -1,0 +1,19 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd ninja-1.10.2 || cd $pckname
+
+sed -i '/int Guess/a \
+  int   j = 0;\
+  char* jobs = getenv( "NINJAJOBS" );\
+  if ( jobs != NULL ) j = atoi( jobs );\
+  if ( j > 0 ) return j;\
+' src/ninja.cc
+
+python3 configure.py --bootstrap
+
+mkdir -p $pckdir/usr/bin
+
+install -vm755 ninja $pckdir/usr/bin/
+install -vDm644 misc/bash-completion $pckdir/usr/share/bash-completion/completions/ninja
+install -vDm644 misc/zsh-completion  $pckdir/usr/share/zsh/site-functions/_ninja
+

@@ -1,0 +1,7 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd make-ca-1.10 || cd $pckname
+
+make DESTDIR=$pckdir install
+install -vdm755 $pckdir/etc/ssl/local
+

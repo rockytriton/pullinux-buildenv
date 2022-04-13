@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd acl-2.3.1 || cd $pckname
+
+./configure --prefix=/usr         \
+            --disable-static      \
+            --docdir=/usr/share/doc/acl-2.3.1
+make
+make DESTDIR=$pckdir install
+

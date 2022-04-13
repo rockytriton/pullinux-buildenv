@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd less-590 || cd $pckname
+
+./configure --prefix=/usr --sysconfdir=/etc 
+
+make
+make DESTDIR=$pckdir install
+

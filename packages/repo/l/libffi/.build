@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libffi-3.4.2 || cd $pckname
+
+./configure --prefix=/usr          \
+            --disable-static       \
+            --with-gcc-arch=native \
+            --disable-exec-static-tramp
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd XML-Parser-2.46 || cd $pckname
+
+perl Makefile.PL
+
+make
+make DESTDIR=$pckdir install
+

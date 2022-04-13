@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xz-5.2.5 || cd $pckname
+
+./configure --prefix=/usr --disable-static --docdir=/usr/share/doc/xz-5.2.5
+
+make
+make DESTDIR=$pckdir install
+

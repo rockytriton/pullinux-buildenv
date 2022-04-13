@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd automake-1.16.5 || cd $pckname
+
+./configure --prefix=/usr --docdir=/usr/share/doc/automake-1.16.5
+
+make
+make DESTDIR=$pckdir install
+

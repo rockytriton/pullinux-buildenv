@@ -1,0 +1,21 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd kmod-29 || cd $pckname
+
+./configure --prefix=/usr          \
+            --sysconfdir=/etc      \
+            --with-openssl         \
+            --with-xz              \
+            --with-zstd            \
+            --with-zlib
+
+make
+make DESTDIR=$pckdir install
+
+mkdir -p $pckdir/usr/sbin
+for target in depmod insmod modinfo modprobe rmmod; do
+  ln -sfv /usr/bin/kmod $pckdir/usr/sbin/$target
+done
+
+ln -sfv kmod $pckdir/usr/bin/lsmod
+

@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libtasn1-4.18.0 || cd $pckname
+
+./configure --prefix=/usr --disable-static 
+
+make
+make DESTDIR=$pckdir install
+

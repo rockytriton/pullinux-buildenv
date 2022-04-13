@@ -1,0 +1,27 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd bzip2-1.0.8 || cd $pckname
+
+patch -Np1 -i ../bzip2-1.0.8-install_docs-1.patch
+sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
+
+make -f Makefile-libbz2_so
+make clean
+
+make
+make PREFIX=$pckdir/usr install
+
+mkdir -p $pckdir/usr/lib
+mkdir -p $pckdir/usr/bin
+
+cp -av libbz2.so.* $pckdir/usr/lib
+ln -sv libbz2.so.1.0.8 $pckdir/usr/lib/libbz2.so
+
+cp -v bzip2-shared $pckdir/usr/bin/bzip2
+for i in $pckdir/usr/bin/{bzcat,bunzip2}; do
+  ln -sfv bzip2 $i
+done
+
+rm -fv $pckdir/usr/lib/libbz2.a
+

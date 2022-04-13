@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd grub-2.06 || cd $pckname
+
+./configure --prefix=/usr          \
+            --sysconfdir=/etc      \
+            --disable-efiemu       \
+            --disable-werror
+
+make
+make DESTDIR=$pckdir install
+
+mkdir -p $pckdir/usr/share/bash-completion/completions
+mv -v $pckdir/etc/bash_completion.d/grub $pckdir/usr/share/bash-completion/completions
+

@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gawk-5.1.1 || cd $pckname
+
+sed -i 's/extras//' Makefile.in
+./configure --prefix=/usr
+
+make
+make DESTDIR=$pckdir install
+
+mkdir -pv                                   $pckdir/usr/share/doc/gawk-5.1.1
+cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} $pckdir/usr/share/doc/gawk-5.1.1
+

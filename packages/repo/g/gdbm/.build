@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gdbm-1.23 || cd $pckname
+
+./configure --prefix=/usr    \
+            --disable-static \
+            --enable-libgdbm-compat
+
+make
+make DESTDIR=$pckdir install
+

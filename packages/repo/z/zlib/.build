@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd zlib-1.2.12 || cd $pckname
+
+./configure --prefix=/usr
+
+make && make DESTDIR=$pckdir install
+
+rm -fv $pckdir/usr/lib/libz.a

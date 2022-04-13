@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd expect5.45.4 || cd $pckname
+
+./configure --prefix=/usr           \
+            --with-tcl=/usr/lib     \
+            --enable-shared         \
+            --mandir=/usr/share/man \
+            --with-tclinclude=/usr/include --build=aarch64-unknown-linux-gnu
+
+make
+make DESTDIR=$pckdir install
+
+ln -svf expect5.45.4/libexpect5.45.4.so $pckdir/usr/lib
+

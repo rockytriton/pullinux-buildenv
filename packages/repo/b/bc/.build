@@ -1,0 +1,8 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd bc-5.2.2 || cd $pckname
+
+CC=gcc ./configure --prefix=/usr -G -O3
+make
+make DESTDIR=$pckdir install
+

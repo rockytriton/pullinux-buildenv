@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gettext-0.21 || cd $pckname
+
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/gettext-0.21
+
+make
+make DESTDIR=$pckdir install
+chmod -v 0755 $pckdir/usr/lib/preloadable_libintl.so
+
+
