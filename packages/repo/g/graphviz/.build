@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd graphviz-2.50.0 || cd $pckname
+
+sed -i '/LIBPOSTFIX="64"/s/64//' configure.ac
+
+./autogen.sh                            
+./configure --prefix=/usr --disable-php 
+
+make
+make DESTDIR=$pckdir install
+

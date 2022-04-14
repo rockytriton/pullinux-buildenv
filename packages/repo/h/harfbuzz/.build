@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd harfbuzz-3.4.0 || cd $pckname
+
+mkdir build &&
+cd    build &&
+
+meson --prefix=/usr        \
+      --buildtype=release  \
+      -Dgraphite2=enabled
+ninja
+
+DESTDIR=$pckdir ninja install
+

@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xmlto-0.0.28 || cd $pckname
+
+LINKS="/usr/bin/links" ./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,21 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd glib-2.70.4 || cd $pckname
+
+
+patch -Np1 -i ../glib-2.70.4-skip_warnings-1.patch
+
+mkdir build &&
+cd    build &&
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Dman=true          \
+      ..                  
+ninja
+
+DESTDIR=$pckdir ninja install
+
+mkdir -p $pckdir/usr/share/doc/glib-2.70.4
+cp -r ../docs/reference/{gio,glib,gobject} $pckdir/usr/share/doc/glib-2.70.4
+

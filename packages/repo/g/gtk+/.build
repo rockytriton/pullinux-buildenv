@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gtk+-3.24.31 || cd $pckname
+
+./configure --prefix=/usr              \
+            --sysconfdir=/etc          \
+            --enable-broadway-backend  \
+            --enable-x11-backend       \
+            --enable-wayland-backend
+
+make
+make DESTDIR=$pckdir install
+

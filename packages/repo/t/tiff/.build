@@ -1,0 +1,16 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd tiff-4.3.0 || cd $pckname
+
+mkdir bbb && cd bbb
+
+cmake -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/libtiff-4.3.0 \
+      -DCMAKE_INSTALL_PREFIX=/usr -G Ninja ..
+
+ninja
+DESTDIR=$pckdir ninja install
+
+mkdir -p $pckdir/usr/lib/pkgconfig
+
+sed -i /Version/s/\$/$(cat ../VERSION)/ $pckdir/usr/lib/pkgconfig/libtiff-4.pc
+

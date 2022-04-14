@@ -1,0 +1,8 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xcb-proto-1.14.1 || cd $pckname
+
+PYTHON=python3 ./configure $XORG_CONFIG
+
+make DESTDIR=$pckdir install
+

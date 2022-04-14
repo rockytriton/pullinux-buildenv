@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd nghttp2-1.46.0 || cd $pckname
+
+./configure --prefix=/usr     \
+            --disable-static  \
+            --enable-lib-only \
+            --docdir=/usr/share/doc/nghttp2-1.46.0
+
+make
+make DESTDIR=$pckdir install
+

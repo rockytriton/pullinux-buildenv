@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd graphite2-1.3.14 || cd $pckname
+
+sed -i '/cmptest/d' tests/CMakeLists.txt
+
+mkdir build &&
+cd    build &&
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr .. 
+
+make
+make DESTDIR=$pckdir install
+

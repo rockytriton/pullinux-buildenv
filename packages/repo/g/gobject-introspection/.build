@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gobject-introspection-1.70.0 || cd $pckname
+
+patch -Np1 -i ../gobject-introspection-1.70.0-build_fix-1.patch
+
+mkdir build &&
+cd    build &&
+
+meson --prefix=/usr --buildtype=release .. &&
+ninja
+DESTDIR=$pckdir ninja install
+
+

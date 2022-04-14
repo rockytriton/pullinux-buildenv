@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd curl-7.81.0 || cd $pckname
+
+./configure --prefix=/usr                           \
+            --disable-static                        \
+            --with-openssl                          \
+            --enable-threaded-resolver              \
+            --with-ca-path=/etc/ssl/certs
+
+make
+make DESTDIR=$pckdir install
+

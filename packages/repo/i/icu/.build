@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd icu-70.1 || cd $pckname || cd icu
+
+cd source
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+

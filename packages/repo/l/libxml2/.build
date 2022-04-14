@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libxml2-2.9.13 || cd $pckname
+
+./configure --prefix=/usr    \
+            --disable-static \
+            --with-history   \
+            --with-python=/usr/bin/python3 \
+            --docdir=/usr/share/doc/libxml2-2.9.13
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libepoxy-1.5.9 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

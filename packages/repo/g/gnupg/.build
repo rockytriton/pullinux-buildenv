@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gnupg-2.2.34 || cd $pckname
+
+sed -e '/noinst_SCRIPTS = gpg-zip/c sbin_SCRIPTS += gpg-zip' \
+    -i tools/Makefile.in
+
+./configure --prefix=/usr            \
+            --localstatedir=/var     \
+            --sysconfdir=/etc        \
+            --docdir=/usr/share/doc/gnupg-2.2.34
+
+make
+make DESTDIR=$pckdir install
+

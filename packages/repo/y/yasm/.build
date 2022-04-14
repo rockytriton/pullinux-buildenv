@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd yasm-1.3.0 || cd $pckname
+
+sed -i 's#) ytasm.*#)#' Makefile.in
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,38 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd polkit-0.120 || cd $pckname
+
+groupadd -fg 27 polkitd || true 
+useradd -c "PolicyKit Daemon Owner" -d /etc/polkit-1 -u 27 \
+        -g polkitd -s /bin/false polkitd || true
+
+sed '/0,/s/^/#/' -i meson_post_install.py &&
+sed '/policy,/d' -i actions/meson.build \
+                 -i src/examples/meson.build
+
+patch -Np1 -i ../polkit-0.120-security_fix-1.patch
+
+mkdir build &&
+cd    build &&
+
+meson --prefix=/usr                       \
+      -Dman=true                          \
+      -Dsession_tracking=libsystemd-login \
+      --buildtype=release                 \
+      ..                                  
+ninja
+DESTDIR=$pckdir ninja install
+
+mkdir -p $pckdir/etc/pam.d
+
+cat > $pckdir/etc/pam.d/polkit-1 << "EOF"
+# Begin /etc/pam.d/polkit-1
+
+auth     include        system-auth
+account  include        system-account
+password include        system-password
+session  include        system-session
+
+# End /etc/pam.d/polkit-1
+EOF
+

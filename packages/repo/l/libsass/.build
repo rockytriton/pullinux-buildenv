@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libsass-3.6.5 || cd $pckname
+
+autoreconf -fi
+
+./configure --prefix=/usr --disable-static
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,24 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd mesa-21.3.6 || cd $pckname
+
+patch -Np1 -i ../mesa-21.3.6-add_xdemos-1.patch
+
+GALLIUM_DRV="auto,virgl"
+DRI_DRIVERS="nouveau"
+
+mkdir bbb && cd bbb
+
+meson --prefix=$XORG_PREFIX          \
+      --buildtype=release            \
+      -Ddri-drivers=$DRI_DRIVERS     \
+      -Dgallium-drivers=$GALLIUM_DRV \
+      -Dgallium-nine=false           \
+      -Dglx=dri                      \
+      -Dvalgrind=disabled            \
+      -Dlibunwind=disabled           \
+      ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

@@ -41,6 +41,13 @@ def download_file(url):
 
 	return dl_cache + bn
 
+installed_list = []
+if os.path.exists('/usr/share/plx/installed'):
+	with open("/usr/share/plx/installed") as fo:
+		installed_list = fo.read().splitlines()
+
+#print('Installed List: ', installed_list)
+
 if not os.path.exists(full_path):
 	print('Package', pck, 'Does not exist')
 	sys.exit(1)
@@ -51,7 +58,22 @@ data = yaml.safe_load(open(full_path, 'r'))
 
 data['filename'] = os.path.basename(data['source'])
 
+if 'deps' in data:
+	for d in data['deps']:
+		if not d in installed_list:
+			print('Missing dependency: ' + d)
+			sys.exit(-2)
+
+if 'mkdeps' in data:
+	for d in data['mkdeps']:
+		if not d in installed_list:
+			print('Missing make dependency: ' + d)
+			sys.exit(-2)
+
 print('checking for file: ', data['filename'])
+
+if data['filename'] == 'none':
+	data['filename'] = None
 
 if not data['filename'] == None and not os.path.exists(dl_cache + data['filename']):
 	url = data['source']
@@ -142,5 +164,10 @@ if os.path.exists('/.install'):
 	os.chdir('/')
 	shutil.rmtree('/.install', ignore_errors=True)
 	shutil.rmtree('/.pck', ignore_errors=True)
+
+if os.path.exists('/usr/share/plx/installed'):
+	with open("/usr/share/plx/installed", "a") as file_object:
+		file_object.write('\n')
+		file_object.write(data['name'])
 
 print('Installed package: ' + pck)

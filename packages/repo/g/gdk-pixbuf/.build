@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gdk-pixbuf-2.42.6 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release --wrap-mode=nofallback ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

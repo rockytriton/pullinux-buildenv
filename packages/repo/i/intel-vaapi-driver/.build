@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd intel-vaapi-driver-2.4.1 || cd $pckname
+
+./configure $XORG_CONFIG
+
+make
+make DESTDIR=$pckdir install
+

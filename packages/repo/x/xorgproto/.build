@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xorgproto-2021.5 || cd $pckname
+
+mkdir build &&
+cd    build &&
+
+meson --prefix=${XORG_PREFIX:?} -Dlegacy=true ..
+ninja
+
+DESTDIR=$pckdir ninja install
+
+mv -v $pckdir$XORG_PREFIX/share/doc/xorgproto{,-2021.5}
+

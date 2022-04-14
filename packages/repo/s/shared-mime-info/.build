@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd shared-mime-info-2.1 || cd $pckname
+
+patch -p1 -i ../shared-mime-info-2.1-meson_0.60_fix-1.patch
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release -Dupdate-mimedb=true ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

@@ -1,0 +1,31 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd llvm-13.0.1 || cd $pckname
+
+tar -xf ../clang-13.0.1.src.tar.xz -C tools &&
+mv tools/clang-13.0.1.src tools/clang
+
+tar -xf ../compiler-rt-13.0.1.src.tar.xz -C projects &&
+mv projects/compiler-rt-13.0.1.src projects/compiler-rt
+
+grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
+
+export NINJAJOBS="$(expr $(nproc) - 1)"
+
+mkdir -v build &&
+cd       build &&
+
+CC=gcc CXX=g++                                  \
+cmake -DCMAKE_INSTALL_PREFIX=/usr               \
+      -DLLVM_ENABLE_FFI=ON                      \
+      -DCMAKE_BUILD_TYPE=Release                \
+      -DLLVM_BUILD_LLVM_DYLIB=ON                \
+      -DLLVM_LINK_LLVM_DYLIB=ON                 \
+      -DLLVM_ENABLE_RTTI=ON                     \
+      -DLLVM_TARGETS_TO_BUILD="host;AMDGPU;BPF" \
+      -DLLVM_BINUTILS_INCDIR=/usr/include       \
+      -Wno-dev -G Ninja ..
+
+DESTDIR=$pckdir ninja install
+
+

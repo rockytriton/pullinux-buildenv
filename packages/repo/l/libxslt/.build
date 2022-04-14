@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libxslt-1.1.35 || cd $pckname
+
+sed -i s/3000/5000/ libxslt/transform.c doc/xsltproc.{1,xml} 
+
+./configure --prefix=/usr --disable-static --without-python 
+make
+
+sed -e 's@\$Date\$@16 February 2022@' -i doc/xsltproc.1
+
+make DESTDIR=$pckdir install
+

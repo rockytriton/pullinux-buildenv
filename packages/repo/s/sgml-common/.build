@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd sgml-common-0.6.3 || cd $pckname
+
+patch -Np1 -i ../sgml-common-0.6.3-manpage-1.patch
+autoreconf -f -i
+
+./configure --prefix=/usr --sysconfdir=/etc 
+
+
+make
+make docdir=/usr/share/doc DESTDIR=$pckdir install
+
+

@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd sassc-3.6.2 || cd $pckname
+
+autoreconf -fi
+
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libssh2-1.10.0 || cd $pckname
+
+./configure --prefix=/usr --disable-static 
+
+make
+make DESTDIR=$pckdir install
+

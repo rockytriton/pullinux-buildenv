@@ -53,7 +53,7 @@ with open(repo_path + '/.build', 'w') as out:
     out.write('tar -xf $filename\n')
     out.write('pckname=${filename%.t*}\n')
     out.write('cd ' + pck + '-' + ver + ' || cd $pckname\n\n')
-    out.write('./configure --prefix=/usr --disable-static \n\n')
+    out.write('./configure --prefix=/usr \n\n')
     out.write('make\nmake DESTDIR=$pckdir install\n\n')
 
 print('Created: ' + repo_path + '/.build')

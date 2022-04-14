@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libpng-1.6.37 || cd $pckname
+
+gzip -cd ../libpng-1.6.37-apng.patch.gz | patch -p1
+
+./configure --prefix=/usr --disable-static 
+
+make
+make DESTDIR=$pckdir install
+
+mkdir -pv $pckdir/usr/share/doc/libpng-1.6.37 &&
+cp -v README libpng-manual.txt $pckdir/usr/share/doc/libpng-1.6.37
+

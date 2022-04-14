@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libunistring-1.0 || cd $pckname
+
+./configure --prefix=/usr --disable-static --docdir=/usr/share/doc/libunistring-1.0
+
+make
+make DESTDIR=$pckdir install
+

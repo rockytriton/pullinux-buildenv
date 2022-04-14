@@ -1,0 +1,36 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd systemd-pam-250 || cd $pckname
+
+
+patch -Np1 -i ../systemd-250-upstream_fixes-1.patch
+
+sed -i -e 's/GROUP="render"/GROUP="video"/' \
+       -e 's/GROUP="sgx", //' rules.d/50-udev-default.rules.in
+
+
+mkdir build 
+cd    build 
+
+meson --prefix=/usr                 \
+      --buildtype=release           \
+      -Dblkid=true                  \
+      -Ddefault-dnssec=no           \
+      -Dfirstboot=false             \
+      -Dinstall-tests=false         \
+      -Dldconfig=false              \
+      -Dman=auto                    \
+      -Dsysusers=false              \
+      -Drpmmacrosdir=no             \
+      -Db_lto=false                 \
+      -Dhomed=false                 \
+      -Duserdb=false                \
+      -Dmode=release                \
+      -Dpamconfdir=/etc/pam.d       \
+      -Ddocdir=/usr/share/doc/systemd-250 \
+      ..                            
+
+ninja
+
+DESTDIR=$pckdir ninja install
+

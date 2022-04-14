@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd fontconfig-2.13.1 || cd $pckname
+
+./configure --prefix=/usr        \
+            --sysconfdir=/etc    \
+            --localstatedir=/var \
+            --disable-docs       \
+            --docdir=/usr/share/doc/fontconfig-2.13.1 
+
+make
+make DESTDIR=$pckdir install
+

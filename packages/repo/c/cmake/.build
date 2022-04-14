@@ -1,0 +1,16 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd cmake-3.22.2 || cd $pckname
+
+sed -i '/"lib64"/s/64//' Modules/GNUInstallDirs.cmake 
+
+./bootstrap --prefix=/usr        \
+            --system-libs        \
+            --mandir=/share/man  \
+            --no-system-jsoncpp  \
+            --no-system-librhash \
+            --docdir=/share/doc/cmake-3.22.2
+
+make
+make DESTDIR=$pckdir install
+

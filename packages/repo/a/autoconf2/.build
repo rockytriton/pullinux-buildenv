@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd autoconf2-2.13 || cd $pckname
+
+patch -Np1 -i ../autoconf-2.13-consolidated_fixes-1.patch 
+mv -v autoconf.texi autoconf213.texi                      
+rm -v autoconf.info                                       
+./configure --prefix=/usr --program-suffix=2.13
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,8 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd hicolor-icon-theme-0.17 || cd $pckname
+
+./configure --prefix=/usr 
+
+make DESTDIR=$pckdir install
+

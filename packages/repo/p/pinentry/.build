@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd pinentry-1.2.0 || cd $pckname
+
+./configure --prefix=/usr --enable-pinentry-tty 
+
+make
+make DESTDIR=$pckdir install
+

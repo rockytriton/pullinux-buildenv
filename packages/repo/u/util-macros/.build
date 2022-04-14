@@ -1,0 +1,8 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd util-macros-1.19.3 || cd $pckname
+
+./configure $XORG_CONFIG
+
+make DESTDIR=$pckdir install
+

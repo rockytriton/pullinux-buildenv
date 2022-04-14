@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libcap-pam-2.63 || cd $pckname
+
+make -C pam_cap
+
+mkdir -p $pckdir/usr/lib/security
+mkdir -p $pckdir/etc/security
+
+install -v -m755 pam_cap/pam_cap.so $pckdir/usr/lib/security &&
+install -v -m644 pam_cap/capability.conf $pckdir/etc/security
+
+
