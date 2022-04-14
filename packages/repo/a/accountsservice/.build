@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd accountsservice-22.07.5 || cd $pckname
+
+sed -i '/PrivateTmp/d' data/accounts-daemon.service.in
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release -Dadmin_group=adm ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

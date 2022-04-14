@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gtk+2-2.24.33 || cd $pckname
+
+sed -e 's#l \(gtk-.*\).sgml#& -o \1#' \
+    -i docs/{faq,tutorial}/Makefile.in 
+
+./configure --prefix=/usr --sysconfdir=/etc
+
+make
+make DESTDIR=$pckdir install
+
