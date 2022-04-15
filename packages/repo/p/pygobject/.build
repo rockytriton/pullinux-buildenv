@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd pygobject-3.42.0 || cd $pckname
+
+mv -v tests/test_gdbus.py{,.nouse}
+
+
+mkdir build 
+cd    build 
+
+meson --prefix=/usr --buildtype=release .. 
+ninja
+
+DESTDIR=$pckdir ninja install
+

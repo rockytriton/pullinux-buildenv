@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd totem-pl-parser-3.26.6 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

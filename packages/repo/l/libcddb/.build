@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libcddb-1.3.2 || cd $pckname
+
+./configure --prefix=/usr --disable-static --build=aarch64-unknown-linux-gnu
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd btrfs-progs-v5.16.2 || cd $pckname
+
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+

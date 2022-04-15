@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd cogl-1.22.8 || cd $pckname
+
+./configure --prefix=/usr  \
+            --enable-gles1 \
+            --enable-gles2 \
+            --enable-{kms,wayland,xlib}-egl-platform \
+            --enable-wayland-egl-server   
+
+make
+make DESTDIR=$pckdir install
+

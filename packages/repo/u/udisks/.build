@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd udisks-2.9.4 || cd $pckname
+
+./configure --prefix=/usr        \
+            --sysconfdir=/etc    \
+            --localstatedir=/var \
+            --disable-static
+
+make
+make DESTDIR=$pckdir install
+

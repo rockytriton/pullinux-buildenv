@@ -1,0 +1,16 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gstreamer-1.20.0 || cd $pckname
+
+mkdir build 
+cd    build 
+
+meson  --prefix=/usr       \
+       --buildtype=release \
+       -Dgst_debug=false   \
+       -Dpackage-origin=https://www.pullinux.org/ \
+       -Dpackage-name="GStreamer 1.20.0 Pullinux"
+
+ninja
+DESTDIR=$pckdir ninja install
+

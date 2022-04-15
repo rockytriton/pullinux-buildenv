@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd boost-1.78.0 || cd $pckname
+
+mkdir -p $pckdir/usr
+
+./bootstrap.sh --prefix=$pckdir/usr --with-python=python3 &&
+./b2 stage ${MAKEFLAGS} threading=multi link=shared
+
+./b2 --prefix=$pckdir/usr install threading=multi link=shared
+

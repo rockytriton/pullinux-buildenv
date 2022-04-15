@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gptfdisk-1.0.8 || cd $pckname
+
+patch -Np1 -i ../gptfdisk-1.0.8-convenience-1.patch 
+sed -i 's|ncursesw/||' gptcurses.cc 
+sed -i 's|sbin|usr/sbin|' Makefile
+
+make
+make DESTDIR=$pckdir install
+

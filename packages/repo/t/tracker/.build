@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd tracker-3.2.1 || cd $pckname
+
+mkdir bbb && cd bbb
+
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Ddocs=false        \
+      -Dman=false .. 
+
+ninja
+DESTDIR=$pckdir ninja install
+

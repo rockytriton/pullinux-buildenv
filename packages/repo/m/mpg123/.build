@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd mpg123-1.29.3 || cd $pckname
+
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+

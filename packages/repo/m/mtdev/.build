@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd mtdev-1.1.6 || cd $pckname
+
+./configure --prefix=/usr --disable-static --build=aarch64-unknown-linux-gnu
+
+make
+make DESTDIR=$pckdir install
+

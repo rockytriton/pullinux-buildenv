@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd clutter-1.26.4 || cd $pckname
+
+./configure --prefix=/usr               \
+            --sysconfdir=/etc           \
+            --enable-egl-backend        \
+            --enable-evdev-input        \
+            --enable-wayland-backend    \
+            --enable-wayland-compositor
+
+make
+make DESTDIR=$pckdir install
+

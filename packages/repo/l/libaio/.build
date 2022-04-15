@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libaio-0.3.112 || cd $pckname
+
+sed -i '/install.*libaio.a/s/^/#/' src/Makefile
+
+make
+
+make DESTDIR=$pckdir install
+

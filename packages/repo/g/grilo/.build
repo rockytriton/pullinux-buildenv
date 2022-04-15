@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd grilo-0.3.14 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Denable-gtk-doc=false ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

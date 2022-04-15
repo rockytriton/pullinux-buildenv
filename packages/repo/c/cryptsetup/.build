@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd cryptsetup-2.4.3 || cd $pckname
+
+./configure --prefix=/usr --disable-ssh-token
+
+make
+make DESTDIR=$pckdir install
+

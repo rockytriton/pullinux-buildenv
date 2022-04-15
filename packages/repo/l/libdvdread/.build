@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libdvdread-6.1.2 || cd $pckname
+
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/libdvdread-6.1.2
+
+make
+make DESTDIR=$pckdir install
+

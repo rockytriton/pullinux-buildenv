@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libpsl-0.21.1 || cd $pckname
+
+sed -i 's/env python/&3/' src/psl-make-dafsa &&
+./configure --prefix=/usr --disable-static  
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd volume_key-volume_key-0.3.12
+
+autoreconf -fiv              
+./configure --prefix=/usr    \
+            --without-python 
+
+make
+make DESTDIR=$pckdir install
+

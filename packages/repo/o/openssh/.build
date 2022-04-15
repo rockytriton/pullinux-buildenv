@@ -1,0 +1,17 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd openssh-8.8p1 || cd $pckname
+
+./configure --prefix=/usr                            \
+            --sysconfdir=/etc/ssh                    \
+            --with-md5-passwords                     \
+            --with-privsep-path=/var/lib/sshd        \
+            --with-default-path=/usr/bin             \
+            --with-superuser-path=/usr/sbin:/usr/bin \
+            --with-pid-dir=/run
+
+make
+make DESTDIR=$pckdir install
+
+install -v -m755    contrib/ssh-copy-id $pckdir/usr/bin
+

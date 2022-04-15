@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd clutter-gtk-1.8.4 || cd $pckname
+
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+

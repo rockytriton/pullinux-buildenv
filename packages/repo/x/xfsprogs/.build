@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xfsprogs-5.14.2 || cd $pckname
+
+make DEBUG=-DNDEBUG     \
+     INSTALL_USER=root  \
+     INSTALL_GROUP=root
+
+make DESTDIR=$pckdir PKG_DOC_DIR=/usr/share/doc/xfsprogs-5.14.2 install     
+make DESTDIR=$pckdir PKG_DOC_DIR=/usr/share/doc/xfsprogs-5.14.2 install-dev 
+
+rm -rfv $pckdir/usr/lib/libhandle.{a,la}
+
+

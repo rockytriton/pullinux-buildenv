@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libvorbis-1.3.7 || cd $pckname
+
+./configure --prefix=/usr --disable-static 
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libblockdev-2.26 || cd $pckname
+
+./configure --prefix=/usr     \
+            --sysconfdir=/etc \
+            --with-python3    \
+            --without-gtk-doc \
+            --without-nvdimm  \
+            --without-dm
+
+make
+make DESTDIR=$pckdir install
+

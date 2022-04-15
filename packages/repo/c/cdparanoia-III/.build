@@ -1,0 +1,32 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd cdparanoia-III-10.2
+
+patch -Np1 -i ../cdparanoia-III-10.2-gcc_fixes-1.patch
+./configure --prefix=/usr --mandir=/usr/share/man --build=aarch64-unknown-linux-gnu
+make -j1
+
+install -d -m 0755 $pckdir/usr/bin
+install -m 755 ./cdparanoia $pckdir/usr/bin
+install -d -m 0755 $pckdir/usr/share/man
+install -d -m 0755 $pckdir/usr/share/man/man1
+install -m 0644 ./cdparanoia.1 $pckdir/usr/share/man/man1
+install -d -m 0755 $pckdir/usr/include
+install -m 0644 ./paranoia/cdda_paranoia.h $pckdir/usr/include
+install -d -m 0755 $pckdir/usr/lib
+install -m 0644 ./paranoia/libcdda_paranoia.so.0.10.2 $pckdir/usr/lib
+install -m 0644 ./paranoia/libcdda_paranoia.a $pckdir/usr/lib
+install -m 0644 ./interface/cdda_interface.h $pckdir/usr/include
+install -m 0644 ./interface/libcdda_interface.so.0.10.2 $pckdir/usr/lib
+install -m 0644 ./interface/libcdda_interface.a $pckdir/usr/lib
+install -m 0644 ./utils.h $pckdir/usr/include
+ln -fs libcdda_interface.so.0.10.2 \
+	$pckdir/usr/lib/libcdda_interface.so.0
+ln -fs libcdda_interface.so.0.10.2 \
+	$pckdir/usr/lib/libcdda_interface.so
+ln -fs libcdda_paranoia.so.0.10.2 \
+	$pckdir/usr/lib/libcdda_paranoia.so.0
+ln -fs libcdda_paranoia.so.0.10.2 \
+	$pckdir/usr/lib/libcdda_paranoia.so
+
+chmod -v 755 $pckdir/usr/lib/libcdda_*.so.0.10.2

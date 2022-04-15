@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gjs-1.70.1 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release ..
+
+ninja
+DESTDIR=$pckdir ninja install
+ln -sfv gjs-console $pckdir/usr/bin/gjs
+

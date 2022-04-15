@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libidn2-2.3.2 || cd $pckname
+
+./configure --prefix=/usr --disable-static
+
+make
+make DESTDIR=$pckdir install
+

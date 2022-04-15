@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libcdio-paranoia-10.2+2.0.1 || cd $pckname
+
+./configure --prefix=/usr --disable-static
+
+make
+make DESTDIR=$pckdir install
+

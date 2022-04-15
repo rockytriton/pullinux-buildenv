@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libvpx-1.11.0 || cd $pckname
+
+sed -i 's/cp -p/cp/' build/make/Makefile
+
+mkdir libvpx-build            
+cd    libvpx-build            
+
+../configure --prefix=/usr    \
+             --enable-shared  \
+             --disable-static
+make
+make DESTDIR=$pckdir install
+

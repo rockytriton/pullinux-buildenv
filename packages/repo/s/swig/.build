@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd swig-4.0.2 || cd $pckname
+
+./configure --prefix=/usr --without-maximum-compile-warnings 
+
+make
+make DESTDIR=$pckdir install
+

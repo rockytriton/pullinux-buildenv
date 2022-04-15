@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd json-glib-1.6.6 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

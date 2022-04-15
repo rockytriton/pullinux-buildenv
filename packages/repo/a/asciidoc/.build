@@ -1,0 +1,5 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd asciidoc-10.1.1 || cd $pckname
+
+python3 setup.py install --optimize=1 --root=$pckdir

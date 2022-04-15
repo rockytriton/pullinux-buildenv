@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd dconf-editor-3.38.3 || cd $pckname
+
+sed -e '/  desktop,/d' \
+    -e '/  appdata,/d' \
+    -i editor/meson.build
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

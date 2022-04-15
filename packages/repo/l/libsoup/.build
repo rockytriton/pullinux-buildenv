@@ -1,0 +1,16 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libsoup-2.74.2 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Dvapi=enabled      \
+      -Dgssapi=disabled   \
+      -Dsysprof=disabled  \
+      .. 
+
+ninja
+DESTDIR=$pckdir ninja install
+

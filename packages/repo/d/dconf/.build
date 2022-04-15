@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd dconf-0.40.0 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release -Dbash_completion=false ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

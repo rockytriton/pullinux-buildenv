@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd soundtouch-2.3.1 || cd $pckname
+
+./bootstrap
+./configure --prefix=/usr \
+            --docdir=/usr/share/doc/soundtouch-2.3.1 
+
+make
+make DESTDIR=$pckdir install
+

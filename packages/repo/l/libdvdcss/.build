@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libdvdcss-1.4.3 || cd $pckname
+
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/libdvdcss-1.4.3
+
+make
+make DESTDIR=$pckdir install
+

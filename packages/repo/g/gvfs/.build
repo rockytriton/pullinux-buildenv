@@ -1,0 +1,23 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gvfs-1.48.1 || cd $pckname
+
+sed -i '/policy,/d' daemon/meson.build
+mkdir bbb && cd bbb
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Dfuse=false        \
+      -Dgphoto2=false     \
+      -Dafc=false         \
+      -Dbluray=false      \
+      -Dnfs=false         \
+      -Dmtp=false         \
+      -Dsmb=false         \
+      -Ddnssd=false       \
+      -Dgoa=false         \
+      -Dgoogle=false      .. 
+
+ninja
+DESTDIR=$pckdir ninja install
+

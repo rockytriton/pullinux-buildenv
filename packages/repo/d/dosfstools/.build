@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd dosfstools-4.2 || cd $pckname
+
+./configure --prefix=/usr            \
+            --enable-compat-symlinks \
+            --mandir=/usr/share/man  \
+            --docdir=/usr/share/doc/dosfstools-4.2
+
+make
+make DESTDIR=$pckdir install
+

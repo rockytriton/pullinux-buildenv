@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gnome-autoar-0.4.3 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release -Dvapi=true -Dtests=true ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

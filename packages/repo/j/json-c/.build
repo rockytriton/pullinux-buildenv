@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd json-c-0.15 || cd $pckname
+
+mkdir build &&
+cd    build &&
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_STATIC_LIBS=OFF    \
+      ..
+
+make
+make DESTDIR=$pckdir install
+

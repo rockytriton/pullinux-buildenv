@@ -1,0 +1,12 @@
+filename=glu-9.0.2.tar.xz
+tar -xf $filename
+pckname=${filename%.t*}
+cd glu-9.0.2 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=$XORG_PREFIX -Dgl_provider=gl --buildtype=release .. 
+
+ninja
+DESTDIR=$pckdir ninja install
+rm -vf $pckdir/usr/lib/libGLU.a

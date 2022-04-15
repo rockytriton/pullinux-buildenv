@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd lvm2-2.03.15 || cd $pckname
+
+PATH+=:/usr/sbin                \
+./configure --prefix=/usr       \
+            --enable-cmdlib     \
+            --enable-pkgconfig  \
+            --enable-udev_sync
+
+make
+make DESTDIR=$pckdir install
+make DESTDIR=$pckdir install_systemd_units
+

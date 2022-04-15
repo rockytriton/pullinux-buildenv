@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gtk+4-4.6.1 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release -Dbroadway-backend=true ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

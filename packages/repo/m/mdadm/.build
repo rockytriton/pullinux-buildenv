@@ -1,0 +1,7 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd mdadm-4.2 || cd $pckname
+
+make
+make BINDIR=/usr/sbin DESTDIR=$pckdir install
+

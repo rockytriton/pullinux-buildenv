@@ -1,0 +1,16 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd nspr-4.33 || cd $pckname
+
+cd nspr                                                     &&
+sed -ri '/^RELEASE/s/^/#/' pr/src/misc/Makefile.in &&
+sed -i 's#$(LIBRARY) ##'   config/rules.mk         &&
+
+./configure --prefix=/usr \
+            --with-mozilla \
+            --with-pthreads \
+            $(echo --enable-64bit)
+
+make
+make DESTDIR=$pckdir install
+

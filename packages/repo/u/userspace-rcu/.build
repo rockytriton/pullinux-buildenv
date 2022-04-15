@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd userspace-rcu-0.13.1 || cd $pckname
+
+./configure --prefix=/usr --disable-static \
+            --docdir=/usr/share/doc/liburcu-0.13.1 
+
+make
+make DESTDIR=$pckdir install
+

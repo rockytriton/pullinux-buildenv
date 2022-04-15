@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd alsa-lib-1.2.6.1 || cd $pckname
+
+./configure 
+
+make
+make DESTDIR=$pckdir install
+
