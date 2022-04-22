@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xkbutils-1.0.4 || cd $pckname
+
+./configure $XORG_CONFIG --build=aarch64-unknown-linux-gnu
+
+make
+make DESTDIR=$pckdir install
+

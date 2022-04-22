@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xprop-1.2.5 || cd $pckname
+
+./configure $XORG_CONFIG
+
+make
+make DESTDIR=$pckdir install
+

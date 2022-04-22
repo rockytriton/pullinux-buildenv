@@ -1,0 +1,6 @@
+tar -xf dejavu-fonts-ttf-2.37.tar.bz2 
+pckname=${filename%.t*}
+cd dejavu-fonts-ttf-2.37 || cd $pckname
+
+install -v -d -m755 $pckdir/usr/share/fonts/dejavu 
+install -v -m644 ttf/*.ttf $pckdir/usr/share/fonts/dejavu 

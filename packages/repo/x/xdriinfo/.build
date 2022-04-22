@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xdriinfo-1.0.6 || cd $pckname
+
+./configure $XORG_CONFIG
+
+make
+make DESTDIR=$pckdir install
+

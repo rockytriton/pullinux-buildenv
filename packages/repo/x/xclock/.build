@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xclock-1.0.9 || cd $pckname
+
+./configure $XORG_CONFIG
+
+make
+make DESTDIR=$pckdir install
+
