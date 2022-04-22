@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd mutter-41.4 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release -Dtests=false .. 
+
+ninja
+DESTDIR=$pckdir ninja install
+

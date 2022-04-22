@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd speexdsp-1.2.0 || cd $pckname
+
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/speexdsp-1.2.0
+
+make
+make DESTDIR=$pckdir install
+

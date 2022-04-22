@@ -1,0 +1,32 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd NetworkManager-1.34.0 || cd $pckname
+
+sed -e 's/-qt4/-qt5/'              \
+    -e 's/moc_location/host_bins/' \
+    -i examples/C/qt/meson.build   &&
+
+sed -e 's/Qt/&5/'                  \
+    -i meson.build
+grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
+
+mkdir bbb && cd bbb
+
+CXXFLAGS+="-O2 -fPIC"            \
+meson --prefix=/usr              \
+      --buildtype=release        \
+      -Dlibaudit=no              \
+      -Dlibpsl=false             \
+      -Dnmtui=true               \
+      -Dovs=false                \
+      -Dppp=false                \
+      -Dselinux=false            \
+      -Dqt=false                 \
+      -Dsession_tracking=systemd \
+      -Dmodem_manager=false      \
+      ..
+
+ninja
+DESTDIR=$pckdir ninja install
+mv -v $pckdir/usr/share/doc/NetworkManager{,-1.34.0}
+

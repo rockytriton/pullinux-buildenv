@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libgxps-0.3.2 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

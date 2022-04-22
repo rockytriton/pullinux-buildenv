@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd tracker-miners-3.2.1 || cd $pckname
+
+mkdir build &&
+cd    build &&
+
+meson --prefix=/usr --buildtype=release -Dman=false .. &&
+ninja
+
+DESTDIR=$pckdir ninja install
+

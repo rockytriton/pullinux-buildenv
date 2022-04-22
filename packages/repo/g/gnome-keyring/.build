@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gnome-keyring-40.0 || cd $pckname
+
+sed -i 's:"/desktop:"/org:' schema/*.xml &&
+
+./configure --prefix=/usr     \
+            --sysconfdir=/etc
+
+make
+make DESTDIR=$pckdir install
+

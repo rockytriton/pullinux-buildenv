@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gnome-bluetooth-3.34.5 || cd $pckname
+
+sed -i "/  desktop,/d" sendto/meson.build
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

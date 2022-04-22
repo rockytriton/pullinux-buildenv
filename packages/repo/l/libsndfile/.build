@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libsndfile-1.0.31 || cd $pckname
+
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/libsndfile-1.0.31
+
+make
+make DESTDIR=$pckdir install
+

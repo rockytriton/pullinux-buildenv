@@ -1,0 +1,16 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd ibus-1.5.25 || cd $pckname
+
+sed -i 's@/desktop/ibus@/org/freedesktop/ibus@g' \
+    data/dconf/org.freedesktop.ibus.gschema.xml
+
+./configure --prefix=/usr             \
+            --sysconfdir=/etc         \
+            --disable-unicode-dict    \
+            --disable-emoji-dict      
+rm -f tools/main.c 
+
+make
+make DESTDIR=$pckdir install
+

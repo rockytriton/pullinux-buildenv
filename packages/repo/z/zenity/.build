@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd zenity-3.32.0 || cd $pckname
+
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+

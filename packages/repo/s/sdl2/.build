@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd sdl2-2.0.20 || cd $pckname
+
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+
+rm -v $pckdir/usr/lib/libSDL2*.a
+

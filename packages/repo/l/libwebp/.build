@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libwebp-1.2.2 || cd $pckname
+
+./configure --prefix=/usr           \
+            --enable-libwebpmux     \
+            --enable-libwebpdemux   \
+            --enable-libwebpdecoder \
+            --enable-libwebpextras  \
+            --enable-swap-16bit-csp \
+            --disable-static 
+
+make
+make DESTDIR=$pckdir install
+

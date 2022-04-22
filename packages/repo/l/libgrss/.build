@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libgrss-0.7.0 || cd $pckname
+
+patch -Np1 -i ../libgrss-0.7.0-bugfixes-2.patch 
+autoreconf -fv 
+./configure --prefix=/usr --disable-static
+
+make
+make DESTDIR=$pckdir install
+

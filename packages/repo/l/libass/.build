@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libass-0.15.2 || cd $pckname
+
+./configure --prefix=/usr --disable-static
+
+make
+make DESTDIR=$pckdir install
+

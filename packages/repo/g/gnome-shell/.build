@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gnome-shell-41.4 || cd $pckname
+
+sed -i '/i18n.merge_file/s/(.*/(/' $(find -name meson.build)
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release -Dtests=false ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gnome-session-41.3 || cd $pckname
+
+sed 's@/bin/sh@/bin/sh -l@' -i gnome-session/gnome-session.in
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release ..
+
+ninja
+DESTDIR=$pckdir ninja install
+
+mv -v $pckdir/usr/share/doc/gnome-session{,-41.3}
+

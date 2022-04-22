@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xorg-server-21.1.3 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=$XORG_PREFIX \
+      -Dsuid_wrapper=true   \
+      -Dxkb_output_dir=/var/lib/xkb
+
+ninja
+DESTDIR=$pckdir ninja install
+
+mkdir -pv $pckdir/etc/X11/xorg.conf.d
+

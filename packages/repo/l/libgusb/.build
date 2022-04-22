@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libgusb-0.3.10 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release -Ddocs=false ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

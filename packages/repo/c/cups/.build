@@ -1,0 +1,17 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd cups-2.4.1 || cd $pckname
+
+sed -e "s/format-truncation//" \
+    -i configure \
+       config-scripts/cups-compiler.m4
+
+./configure --libdir=/usr/lib            \
+            --with-system-groups=lpadmin \
+            --with-docdir=/usr/share/cups/doc-2.4.1 
+
+make
+make DESTDIR=$pckdir install
+
+echo "ServerName /run/cups/cups.sock" > $pckdir/etc/cups/client.conf
+

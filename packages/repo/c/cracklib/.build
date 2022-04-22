@@ -1,0 +1,16 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd cracklib-2.9.7 || cd $pckname
+
+sed -i '/skipping/d' util/packer.c &&
+
+sed -i '15209 s/.*/am_cv_python_version=3.10/' configure &&
+
+PYTHON=python3 CPPFLAGS=-I/usr/include/python3.10 \
+./configure --prefix=/usr    \
+            --disable-static \
+            --with-default-dict=/usr/lib/cracklib/pw_dict
+
+make
+make DESTDIR=$pckdir install
+

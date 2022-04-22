@@ -1,0 +1,34 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd slang-2.3.2 || cd $pckname
+
+echo 
+echo "CONFIGURING"
+echo
+
+./configure --prefix=/usr \
+            --sysconfdir=/etc \
+            --with-readline=gnu 
+
+echo ""
+echo MAKING
+echo
+
+make -j1
+
+echo ""
+echo INSTALLING
+echo
+echo
+
+make -j1 install_doc_dir=/usr/share/doc/slang-2.3.2   \
+     SLSH_DOC_DIR=/usr/share/doc/slang-2.3.2/slsh \
+     DESTDIR=$pckdir install 
+
+echo 
+echo "CHMODING"
+echo
+
+chmod -v 755 $pckdir/usr/lib/slang/v2/modules/*.so
+
+

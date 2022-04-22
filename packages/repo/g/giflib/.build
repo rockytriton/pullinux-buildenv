@@ -1,0 +1,8 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd giflib-5.2.1 || cd $pckname
+
+make
+make PREFIX=/usr DESTDIR=$pckdir install
+
+rm -fv $pckdir/usr/lib/libgif.a

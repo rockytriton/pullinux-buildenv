@@ -1,0 +1,22 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd evolution-data-server-3.42.4 || cd $pckname
+
+mkdir build &&
+cd    build 
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr   \
+      -DSYSCONF_INSTALL_DIR=/etc    \
+      -DENABLE_VALA_BINDINGS=ON     \
+      -DENABLE_INSTALLED_TESTS=ON   \
+      -DENABLE_GOOGLE=ON            \
+      -DWITH_OPENLDAP=OFF           \
+      -DWITH_KRB5=OFF               \
+      -DENABLE_INTROSPECTION=ON     \
+      -DENABLE_GTK_DOC=OFF          \
+      -DWITH_LIBDB=OFF              \
+      .. 
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libwacom-2.1.0 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release -Dtests=disabled  ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

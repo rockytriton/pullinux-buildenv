@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd gnome-shell-extensions-41.2 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

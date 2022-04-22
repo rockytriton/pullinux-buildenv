@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xwayland-22.1.0 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=$XORG_PREFIX         \
+      -Dxvfb=false                  \
+      -Dxkb_output_dir=/var/lib/xkb \
+      ..
+
+ninja
+DESTDIR=$pckdir ninja install
+
+mkdir -pv $pckdir/etc/X11/xorg.conf.d

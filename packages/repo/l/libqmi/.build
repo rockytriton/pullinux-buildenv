@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libqmi-1.30.4 || cd $pckname
+
+PYTHON=python3 ./configure --prefix=/usr --disable-static
+
+make
+make DESTDIR=$pckdir install
+

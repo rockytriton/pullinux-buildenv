@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libtirpc-1.3.2 || cd $pckname
+
+./configure --prefix=/usr                                   \
+            --sysconfdir=/etc                               \
+            --disable-static                                \
+            --disable-gssapi
+
+make
+make DESTDIR=$pckdir install
+

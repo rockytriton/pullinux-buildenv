@@ -1,0 +1,24 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd colord-1.4.6 || cd $pckname
+
+mv po/fur.po po/ur.po &&
+sed -i 's/fur/ur/' po/LINGUAS
+
+mkdir build &&
+cd build 
+
+meson --prefix=/usr            \
+      --buildtype=release      \
+      -Ddaemon_user=colord     \
+      -Dvapi=true              \
+      -Dsystemd=true           \
+      -Dlibcolordcompat=true   \
+      -Dargyllcms_sensor=false \
+      -Dbash_completion=false  \
+      -Ddocs=false             \
+      -Dman=false ..           
+ninja
+
+DESTDIR=$pckdir ninja install
+

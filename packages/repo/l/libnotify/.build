@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libnotify-0.7.9 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Dgtk_doc=false     \
+      -Dman=false ..
+
+ninja
+DESTDIR=$pckdir ninja install
+
+mv -v $pckdir/usr/share/doc/libnotify{,-0.7.9}

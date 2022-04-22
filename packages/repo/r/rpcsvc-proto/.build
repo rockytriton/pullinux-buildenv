@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd rpcsvc-proto-1.4.3 || cd $pckname
+
+./configure --sysconfdir=/etc
+
+make
+make DESTDIR=$pckdir install
+

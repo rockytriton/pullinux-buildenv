@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libgdata-0.18.1 || cd $pckname
+
+mkdir build 
+cd build
+
+meson --prefix=/usr                 \
+      --buildtype=release           \
+      -Dgtk_doc=false               \
+      -Dalways_build_tests=false ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

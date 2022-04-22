@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd parse-yapp-1.21 || cd $pckname
+
+perl Makefile.PL
+
+make
+make DESTDIR=$pckdir install
+

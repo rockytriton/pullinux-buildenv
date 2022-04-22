@@ -1,0 +1,19 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd nautilus-41.2 || cd $pckname
+
+sed "/dependency/s@'libportal'@'libportal-gtk3'@" -i meson.build
+sed "/portal-gtk3/s@portal/@portal-gtk3/@" -i src/nautilus-files-view.c
+
+mkdir build &&
+cd    build 
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Dselinux=false     \
+      -Dpackagekit=false  \
+      .. 
+
+ninja
+DESTDIR=$pckdir ninja install
+

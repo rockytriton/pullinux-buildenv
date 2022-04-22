@@ -1,0 +1,14 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libnma-1.8.34 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr                             \
+      --buildtype=release                       \
+      -Dgtk_doc=false                           \
+      -Dmobile_broadband_provider_info=false ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

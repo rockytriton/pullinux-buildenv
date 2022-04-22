@@ -1,0 +1,16 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd pulseaudio-15.0 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Ddatabase=gdbm     \
+      -Ddoxygen=false     \
+      -Dbluez5=disabled
+
+ninja
+DESTDIR=$pckdir ninja install
+
+rm -fv $pckdir/etc/dbus-1/system.d/pulseaudio-system.conf

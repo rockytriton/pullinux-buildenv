@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd clutter-gst-3.0.27 || cd $pckname
+
+./configure --prefix=/usr 
+
+make
+make DESTDIR=$pckdir install
+

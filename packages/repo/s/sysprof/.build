@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd sysprof-3.42.1 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr ..
+
+ninja
+DESTDIR=$pckdir ninja install
+

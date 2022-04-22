@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd lcms2-2.13.1 || cd $pckname
+
+./configure --prefix=/usr --disable-static
+
+make
+make DESTDIR=$pckdir install
+

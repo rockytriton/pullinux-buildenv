@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libpwquality-1.4.4 || cd $pckname
+
+./configure --prefix=/usr                      \
+            --disable-static                   \
+            --with-securedir=/usr/lib/security \
+            --with-python-binary=python3
+
+make
+make DESTDIR=$pckdir install
+

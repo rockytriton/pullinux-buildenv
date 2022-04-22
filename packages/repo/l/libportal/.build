@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd libportal-0.5 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr --buildtype=release -Ddocs=false .. 
+
+ninja
+DESTDIR=$pckdir ninja install
+

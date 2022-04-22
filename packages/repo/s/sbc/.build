@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd sbc-1.5 || cd $pckname
+
+patch -Np1 -i ../fix.patch
+
+./configure --prefix=/usr --disable-static --disable-tester
+
+make
+make DESTDIR=$pckdir install
+

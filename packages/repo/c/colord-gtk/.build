@@ -1,0 +1,17 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd colord-gtk-0.3.0 || cd $pckname
+
+mkdir bbb && cd bbb
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Dgtk2=true         \
+      -Dgtk4=true         \
+      -Dvapi=true         \
+      -Ddocs=false        \
+      -Dman=false .. 
+
+ninja
+DESTDIR=$pckdir ninja install
+

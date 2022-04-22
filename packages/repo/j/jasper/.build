@@ -1,0 +1,20 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd jasper-version-2.0.33
+
+sed -i '/GLUT_glut_LIBRARY/s/^/#/' build/cmake/modules/JasOpenGL.cmake
+
+
+mkdir BUILD &&
+cd    BUILD 
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr    \
+      -DCMAKE_BUILD_TYPE=Release     \
+      -DCMAKE_SKIP_INSTALL_RPATH=YES \
+      -DJAS_ENABLE_DOC=NO            \
+      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/jasper-2.0.33 \
+      .. 
+
+make
+make DESTDIR=$pckdir install
+

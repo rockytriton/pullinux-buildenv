@@ -1,0 +1,11 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd ruby-3.1.0 || cd $pckname
+
+./configure --prefix=/usr   \
+            --enable-shared \
+            --docdir=/usr/share/doc/ruby-3.1.0
+
+make
+make DESTDIR=$pckdir install
+

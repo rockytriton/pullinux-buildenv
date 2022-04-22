@@ -1,0 +1,13 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd upower-0.99.13 || cd $pckname
+
+./configure --prefix=/usr         \
+             --sysconfdir=/etc    \
+             --localstatedir=/var \
+             --enable-deprecated  \
+             --disable-static 
+
+make
+make DESTDIR=$pckdir install
+

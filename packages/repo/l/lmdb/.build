@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd lmdb-LMDB_0.9.29
+
+cd libraries/liblmdb 
+make                 
+sed -i 's| liblmdb.a||' Makefile
+
+make DESTDIR=$pckdir install
+

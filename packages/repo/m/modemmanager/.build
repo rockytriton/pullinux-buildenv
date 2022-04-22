@@ -1,0 +1,15 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd modemmanager-1.18.6 || cd $pckname
+
+./configure --prefix=/usr                 \
+            --sysconfdir=/etc             \
+            --localstatedir=/var          \
+            --disable-static              \
+            --disable-maintainer-mode     \
+            --with-systemd-journal        \
+            --with-systemd-suspend-resume
+
+make
+make DESTDIR=$pckdir install
+

@@ -1,0 +1,9 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd xdg-utils-1.1.3 || cd $pckname
+
+./configure --prefix=/usr -mandir=/usr/share/man 
+
+make
+make DESTDIR=$pckdir install
+

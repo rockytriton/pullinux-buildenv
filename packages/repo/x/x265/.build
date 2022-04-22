@@ -1,0 +1,12 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd x265-20220219 || cd $pckname
+
+mkdir bld &&
+cd    bld &&
+
+cmake  -DGIT_ARCHETYPE=1 -DCMAKE_INSTALL_PREFIX=/usr ../source 
+
+make
+make DESTDIR=$pckdir install
+rm -vf $pckdir/usr/lib/libx265.a 
