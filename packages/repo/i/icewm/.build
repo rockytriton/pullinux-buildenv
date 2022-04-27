@@ -1,0 +1,10 @@
+tar -xf $filename
+pckname=${filename%.t*}
+cd icewm-2.9.5 || cd $pckname
+
+autoreconf -i
+./configure --prefix=/usr --sysconfdir=/etc
+
+make
+make DESTDIR=$pckdir install
+

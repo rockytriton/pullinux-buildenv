@@ -4,7 +4,7 @@ cd gdm-41.3 || cd $pckname
 
 mkdir bbb && cd bbb
 
-meson --prefix=/usr --buildtype=release -Dgdm-xsession=true ..
+meson --prefix=/usr --buildtype=release -Dgdm-xsession=true -Ddefault-pam-config=lfs ..
 
 ninja
 DESTDIR=$pckdir ninja install

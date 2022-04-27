@@ -21,7 +21,7 @@ deps: [
   'xhost',
   'xinput',
   'xkbcomp',
-  'xkbevdev',
+  'xkbevd',
   'xkbutils',
   'xkill',
   'xlsatoms',
@@ -35,7 +35,8 @@ deps: [
   'xrefresh',
   'xset',
   'xsetroot',
-  'xvinfoxwd',
+  'xvinfo',
+  'xwd',
   'xwininfo',
   'xwud',
 ]
